@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travthenticate_flutter/styles/gradient_text.dart';
+import 'package:travthenticate_flutter/styles/color_themes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,36 +12,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    const ColorScheme colorScheme = ColorScheme(
-      brightness: Brightness.light,
-      primary: Color.fromARGB(255, 34, 192, 195),
-      onPrimary: Color.fromARGB(255, 255, 255, 255),
-      secondary: Color.fromARGB(255, 253, 187, 45),
-      onSecondary: Color.fromARGB(255, 255, 255, 255),
-      error: Colors.red,
-      onError: Color.fromARGB(255, 255, 255, 255),
-      background: Color.fromARGB(255, 255, 255, 255),
-      onBackground: Color.fromARGB(255, 0, 0, 0),
-      surface: Color.fromARGB(255, 255, 255, 255),
-      onSurface: Color.fromARGB(255, 0, 0, 0),
-    );
-
-    const AppBarTheme appBarTheme = AppBarTheme(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-    );
-
     return MaterialApp(
       title: 'Travthenticate',
       theme: ThemeData(
         colorScheme: colorScheme,
         appBarTheme: appBarTheme,
+        elevatedButtonTheme: elevatedButtonThemeData,
+        outlinedButtonTheme: outlinedButtonThemeData,
       ),
       home: const HomePage(),
     );
   }
 }
 
-// linear-gradient(90deg, #fdbb2d 0%, #22c1c3 100%);
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -101,6 +85,9 @@ class HomePage extends StatelessWidget {
                     onPressed: () {},
                     child: const Text('Log In'),
                   ),
+                  const SizedBox(
+                    width: 20,
+                  ),
                   OutlinedButton(
                     onPressed: () {},
                     child: const Text('Sign Up'),
@@ -108,6 +95,29 @@ class HomePage extends StatelessWidget {
                 ],
               )
             ],
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          padding: const EdgeInsets.only(
+            top: 8.0,
+            bottom: 8.0,
+          ),
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: <Color>[
+                Color.fromARGB(255, 34, 192, 195),
+                Color.fromARGB(255, 253, 187, 45),
+              ],
+            ),
+          ),
+          child: Text(
+            'Copyright © ${DateTime.now().year}',
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
       ),
