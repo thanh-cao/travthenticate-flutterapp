@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:travthenticate_flutter/forms/user_auth_form.dart';
 
+import '../constants/routes.dart';
 import '../styles/gradient_text.dart';
 
 class SignupView extends HookWidget {
@@ -36,17 +37,16 @@ class SignupView extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: GradientText(
-            text: 'Travthenticate',
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color.fromARGB(255, 34, 192, 195),
-                Color.fromARGB(255, 253, 187, 45),
-              ],
-            ),
+        title: const GradientText(
+          text: 'Travthenticate',
+          gradient: LinearGradient(
+            colors: <Color>[
+              Color.fromARGB(255, 34, 192, 195),
+              Color.fromARGB(255, 253, 187, 45),
+            ],
           ),
         ),
+        centerTitle: true,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -87,7 +87,10 @@ class SignupView extends HookWidget {
                     ),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
-                        print('Tap to log in view');
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                          loginRoute,
+                          ModalRoute.withName('/'),
+                        );
                       },
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travthenticate_flutter/constants/routes.dart';
 
 import '../styles/gradient_text.dart';
 
@@ -9,17 +10,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: GradientText(
-            text: 'Travthenticate',
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color.fromARGB(255, 34, 192, 195),
-                Color.fromARGB(255, 253, 187, 45),
-              ],
-            ),
+        title: const GradientText(
+          text: 'Travthenticate',
+          gradient: LinearGradient(
+            colors: <Color>[
+              Color.fromARGB(255, 34, 192, 195),
+              Color.fromARGB(255, 253, 187, 45),
+            ],
           ),
         ),
+        centerTitle: true,
       ),
       body: Container(
         alignment: Alignment.center,
@@ -59,14 +59,18 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(loginRoute);
+                    },
                     child: const Text('Log In'),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(signupRoute);
+                    },
                     child: const Text('Sign Up'),
                   ),
                 ],

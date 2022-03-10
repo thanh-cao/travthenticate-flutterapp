@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:travthenticate_flutter/styles/color_themes.dart';
 import 'package:travthenticate_flutter/views/login_view.dart';
+import 'package:travthenticate_flutter/views/signup_view.dart';
+import 'constants/routes.dart';
 import 'views/homepage_view.dart';
 
 void main() {
@@ -21,7 +23,12 @@ class MyApp extends StatelessWidget {
         elevatedButtonTheme: elevatedButtonThemeData,
         outlinedButtonTheme: outlinedButtonThemeData,
       ),
-      home: const LoginView(),
+      home: const HomePage(),
+      routes: {
+        homePageRoute: (context) => const HomePage(),
+        loginRoute: (context) => const LoginView(),
+        signupRoute: (context) => const SignupView(),
+      },
     );
   }
 }

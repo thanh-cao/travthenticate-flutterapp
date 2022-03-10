@@ -14,15 +14,17 @@ const ColorScheme colorScheme = ColorScheme(
   onSurface: Color.fromARGB(255, 0, 0, 0),
 );
 
-const AppBarTheme appBarTheme = AppBarTheme(
-  backgroundColor: Color.fromARGB(255, 255, 255, 255),
-);
+AppBarTheme appBarTheme = AppBarTheme(
+    backgroundColor: colorScheme.surface,
+    iconTheme: IconThemeData(
+      color: colorScheme.primary,
+    ));
 
 ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
   style: ButtonStyle(
     overlayColor: getColor(
-      const Color.fromARGB(255, 34, 192, 195),
-      const Color.fromARGB(255, 253, 187, 45),
+      colorScheme.primary,
+      colorScheme.secondary,
     ),
   ),
 );
@@ -30,12 +32,12 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
 OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
   style: ButtonStyle(
     overlayColor: getColor(
-      const Color.fromARGB(255, 34, 192, 195),
-      const Color.fromARGB(255, 253, 187, 45),
+      colorScheme.primary,
+      colorScheme.secondary,
     ),
     side: getBorder(
-      const Color.fromARGB(255, 34, 192, 195),
-      const Color.fromARGB(255, 253, 187, 45),
+      colorScheme.primary,
+      colorScheme.secondary,
     ),
   ),
 );
