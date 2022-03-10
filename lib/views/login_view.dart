@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:travthenticate_flutter/forms/user_auth_form.dart';
@@ -62,7 +63,35 @@ class LoginView extends HookWidget {
             const SizedBox(
               height: 10.0,
             ),
-            const UserAuthForm(),
+            const UserAuthForm(
+              textButton: 'Log in',
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Don\'t have an account? ',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onBackground,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'Sign up!',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.primary,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        print('Tap to sign up view');
+                      },
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

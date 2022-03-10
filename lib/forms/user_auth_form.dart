@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
@@ -9,11 +8,18 @@ import 'package:http/http.dart' as http;
 import '../constants/urls.dart';
 
 class UserAuthForm extends HookWidget {
-  const UserAuthForm({Key? key}) : super(key: key);
+  final String textButton;
+  final bool nameField;
+  const UserAuthForm({
+    Key? key,
+    this.nameField = false,
+    required this.textButton,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _userAuthFormKey = GlobalKey<FormState>();
+    final _name = useTextEditingController();
     final _email = useTextEditingController
         .fromValue(const TextEditingValue(text: 'harry@potter.com'));
     final _password = useTextEditingController();
@@ -25,6 +31,26 @@ class UserAuthForm extends HookWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
+          if (nameField)
+            TextFormField(
+              controller: _name,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your name';
+                }
+                return null;
+              },
+              enableSuggestions: false,
+              autocorrect: false,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                isDense: true,
+                labelText: 'Name',
+              ),
+            ),
+          const SizedBox(
+            height: 10.0,
+          ),
           TextFormField(
             controller: _email,
             validator: (value) {
@@ -119,31 +145,7 @@ class UserAuthForm extends HookWidget {
                 }
               }
             },
-            child: const Text('Log in'),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: 'Don\'t have an account? ',
-                  style: DefaultTextStyle.of(context).style,
-                ),
-                TextSpan(
-                  text: 'Sign up!',
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.primary,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      print('Tap to sign up view');
-                    },
-                ),
-              ],
-            ),
+            child: Text(textButton),
           ),
         ],
       ),
