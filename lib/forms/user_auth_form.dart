@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:http/http.dart' as http;
-
-import '../constants/urls.dart';
+import 'package:travthenticate_flutter/services/auth/auth_services.dart';
 
 class UserAuthForm extends HookWidget {
   final String textButton;
@@ -95,53 +91,42 @@ class UserAuthForm extends HookWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              final Map<String, String> userInputs = {
-                'email': _email.text.toString(),
-                'password': _password.text.toString(),
-              };
               if (_userAuthFormKey.currentState!.validate()) {
-                try {
-                  const String dataUrl = '$apiUrl/users/login';
-                  final response = await http.post(
-                    Uri.parse(
-                      dataUrl,
+                final result = await AuthService().loginUser(
+                  email: _email.text,
+                  password: _password.text,
+                );
+
+                if (((result is! User)) && result['error'] != null) {
+                  ScaffoldMessenger.of(context).showMaterialBanner(
+                    MaterialBanner(
+                      content: Text(result['error']),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context)
+                                .hideCurrentMaterialBanner();
+                          },
+                          child: const Text('Dismiss'),
+                        ),
+                      ],
                     ),
-                    headers: {'Content-Type': 'application/json'},
-                    body: json.encode(userInputs),
                   );
-                  if (response.statusCode == 200) {
-                    ScaffoldMessenger.of(context).showMaterialBanner(
-                      MaterialBanner(
-                        content: const Text('Welcome back'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentMaterialBanner();
-                            },
-                            child: const Text('Dismiss'),
-                          ),
-                        ],
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showMaterialBanner(
-                      MaterialBanner(
-                        content: Text(json.decode(response.body)['error']),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentMaterialBanner();
-                            },
-                            child: const Text('Dismiss'),
-                          ),
-                        ],
-                      ),
-                    );
-                  }
-                } catch (err) {
-                  //
+                } else {
+                  ScaffoldMessenger.of(context).showMaterialBanner(
+                    MaterialBanner(
+                      content: const Text('Wecome backe!'),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            ScaffoldMessenger.of(context)
+                                .hideCurrentMaterialBanner();
+                          },
+                          child: const Text('Dismiss'),
+                        ),
+                      ],
+                    ),
+                  );
                 }
               }
             },

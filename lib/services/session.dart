@@ -32,7 +32,6 @@ class Session {
       headers: headers,
     );
     _updateCookie(response);
-    print('session code ${response.body}');
     if (response.statusCode < 200 || response.statusCode >= 400) {
       return json.decode(response.body);
     }
