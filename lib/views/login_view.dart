@@ -11,30 +11,6 @@ class LoginView extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _emailController = useTextEditingController();
-    final _passwordController = useTextEditingController();
-    final email = useState('');
-    final password = useState('');
-
-    useEffect(
-      () {
-        _emailController.addListener(() {
-          email.value = _emailController.text;
-        });
-        return null;
-      },
-      [_emailController],
-    );
-    useEffect(
-      () {
-        _passwordController.addListener(() {
-          password.value = _passwordController.text;
-        });
-        return null;
-      },
-      [_passwordController],
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const GradientText(
