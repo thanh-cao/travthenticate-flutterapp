@@ -19,4 +19,23 @@ class UserService {
 
     return allUsers;
   }
+
+  Future<User> getUserProfile({
+    required int userId,
+  }) async {
+    String url = '$apiUrl/users/$userId';
+    return await http.get(url);
+  }
+
+  Future<dynamic> getUserReviews({
+    required int userId,
+  }) async {
+    String url = '$apiUrl/users/$userId/reviews';
+    var allReviews = await http.get(url);
+    // List<UserReview> allReviews = [];
+    // for (var review in results) {
+    //   allReviews.add(UserReview.fromJson(review));
+    // }
+    return allReviews;
+  }
 }

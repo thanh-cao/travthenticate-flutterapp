@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:travthenticate_flutter/views/user/user_profile.dart';
 
 import '../../services/auth_services.dart';
 import '../../services/user_services.dart';
@@ -53,11 +54,21 @@ class UserFeedView extends HookWidget {
                       itemCount: allUsers.data!.toList().length,
                       itemBuilder: (BuildContext context, int index) {
                         final user = allUsers.data![index];
-                        return UserCard(userData: user);
+                        return UserCard(
+                          onTap: (user) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UserProfileView(userData: user)),
+                            );
+                          },
+                          userData: user,
+                        );
                       },
                       separatorBuilder: (BuildContext context, int index) {
-                        return const SizedBox(
-                          height: 10,
+                        return Divider(
+                          color: Theme.of(context).colorScheme.primary,
                         );
                       },
                     ),

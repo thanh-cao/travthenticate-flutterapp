@@ -42,6 +42,14 @@ OutlinedButtonThemeData outlinedButtonThemeData = OutlinedButtonThemeData(
   ),
 );
 
+TextTheme textTheme = TextTheme(
+  headlineLarge: TextStyle(color: colorScheme.primary),
+  headlineMedium: TextStyle(color: colorScheme.primary),
+  headlineSmall: TextStyle(color: colorScheme.primary),
+  titleLarge: TextStyle(color: colorScheme.primary),
+  titleMedium: TextStyle(color: colorScheme.primary),
+  titleSmall: TextStyle(color: colorScheme.primary),
+);
 // function to get MaterialStateProperty color or border based on button's state
 MaterialStateProperty<Color> getColor(
   Color initialColor,
