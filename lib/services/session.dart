@@ -10,7 +10,7 @@ class Session {
   Session._sharedInstance();
   factory Session() => _shared;
 
-  Future<Map> get(String url) async {
+  Future<dynamic> get(String url) async {
     http.Response response = await http.get(
         Uri.parse(
           url,

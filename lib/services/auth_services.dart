@@ -1,46 +1,6 @@
-import '../../constants/urls.dart';
-import '../session.dart';
-
-class User {
-  final int id;
-  final String name;
-  final String email;
-  final String? about;
-  final String? interest;
-  final String? location;
-  final String? countrycode;
-  final String? languages;
-  final String? profilePicture;
-  final String createdAt;
-
-  User({
-    required this.id,
-    required this.name,
-    required this.email,
-    this.about,
-    this.interest,
-    this.location,
-    this.countrycode,
-    this.languages,
-    this.profilePicture,
-    required this.createdAt,
-  });
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      about: json['about'],
-      interest: json['interests'],
-      location: json['location'],
-      countrycode: json['countrycode'],
-      languages: json['languages'],
-      profilePicture: json['profilePicture'],
-      createdAt: json['createdAt'],
-    );
-  }
-}
+import '../constants/urls.dart';
+import 'models.dart';
+import 'session.dart';
 
 class AuthService {
   final http = Session();
