@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:travthenticate_flutter/services/auth/auth_services.dart';
+import 'package:travthenticate_flutter/services/auth_services.dart';
+
+import '../services/models.dart';
 
 class UserAuthForm extends HookWidget {
   final String textButton;
@@ -18,7 +20,8 @@ class UserAuthForm extends HookWidget {
     final _name = useTextEditingController();
     final _email = useTextEditingController
         .fromValue(const TextEditingValue(text: 'harry@potter.com'));
-    final _password = useTextEditingController();
+    final _password = useTextEditingController
+        .fromValue(const TextEditingValue(text: '1234'));
 
     return Form(
       key: _userAuthFormKey,
@@ -91,49 +94,61 @@ class UserAuthForm extends HookWidget {
           ),
           ElevatedButton(
             onPressed: () async {
-              if (_userAuthFormKey.currentState!.validate()) {
-                final result = await AuthService().loginUser(
-                  email: _email.text,
-                  password: _password.text,
-                );
-
-                if (((result is! User)) && result['error'] != null) {
-                  ScaffoldMessenger.of(context).showMaterialBanner(
-                    MaterialBanner(
-                      content: Text(result['error']),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context)
-                                .hideCurrentMaterialBanner();
-                          },
-                          child: const Text('Dismiss'),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  ScaffoldMessenger.of(context).showMaterialBanner(
-                    MaterialBanner(
-                      content: const Text('Wecome backe!'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            ScaffoldMessenger.of(context)
-                                .hideCurrentMaterialBanner();
-                          },
-                          child: const Text('Dismiss'),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-              }
+              _onLoginButtonPressed(
+                email: _email.text,
+                password: _password.text,
+                userAuthFormKey: _userAuthFormKey,
+                context: context,
+              );
             },
             child: Text(textButton),
           ),
         ],
       ),
     );
+  }
+
+  void _onLoginButtonPressed({
+    required String email,
+    required String password,
+    required GlobalKey<FormState> userAuthFormKey,
+    required BuildContext context,
+  }) async {
+    if (userAuthFormKey.currentState!.validate()) {
+      final result = await AuthService().loginUser(
+        email: email,
+        password: password,
+      );
+
+      if (((result is! User)) && result['error'] != null) {
+        ScaffoldMessenger.of(context).showMaterialBanner(
+          MaterialBanner(
+            content: Text(result['error']),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                },
+                child: const Text('Dismiss'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showMaterialBanner(
+          MaterialBanner(
+            content: const Text('Wecome backe!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+                },
+                child: const Text('Dismiss'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 }
