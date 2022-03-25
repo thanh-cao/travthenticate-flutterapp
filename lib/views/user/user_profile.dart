@@ -5,6 +5,7 @@ import '../../services/auth_services.dart';
 import '../../services/models.dart';
 import '../../services/user_services.dart';
 import '../../styles/gradient_text.dart';
+import 'user_details_component.dart';
 
 class UserProfileView extends HookWidget {
   const UserProfileView({Key? key, required this.userData}) : super(key: key);
@@ -38,7 +39,11 @@ class UserProfileView extends HookWidget {
         ],
       ),
       body: Column(children: [
-        Text(userData.name),
+        if (allReviews.hasData)
+          UserDetails(
+            userData: userData,
+            reviewCount: allReviews.data!['count'],
+          ),
         allReviews.hasData
             ? Text('Reviews count ${allReviews.data!['count']}')
             : const Text(''),
