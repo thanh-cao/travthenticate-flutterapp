@@ -31,11 +31,16 @@ class UserService {
     required int userId,
   }) async {
     String url = '$apiUrl/users/$userId/reviews';
-    var allReviews = await http.get(url);
-    // List<UserReview> allReviews = [];
-    // for (var review in results) {
-    //   allReviews.add(UserReview.fromJson(review));
-    // }
-    return allReviews;
+    var results = await http.get(url);
+
+    List<UserReview> allReviews = [];
+    for (var review in results['rows']) {
+      allReviews.add(UserReview.fromJson(review));
+    }
+    print(allReviews);
+    return {
+      'count': results['count'],
+      'reviews': allReviews,
+    };
   }
 }

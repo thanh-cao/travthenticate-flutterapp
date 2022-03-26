@@ -38,7 +38,7 @@ class UserDetails extends StatelessWidget {
                         imgUrl,
                         fit: BoxFit.cover,
                         errorBuilder: ((context, error, stackTrace) {
-                          return Image.asset('profilePlaceholder.png');
+                          return Image.asset('assets/profilePlaceholder.png');
                         }),
                       ),
                     ),
@@ -98,6 +98,7 @@ class UserDetails extends StatelessWidget {
             vertical: 26.0,
             horizontal: 16.0,
           ),
+          alignment: Alignment.topLeft,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

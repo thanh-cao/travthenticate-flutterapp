@@ -33,7 +33,7 @@ class User {
       location: json['location'],
       countrycode: json['countrycode'],
       languages: json['languages'],
-      profilePicture: json['profilePicture'],
+      profilePicture: json['profilePicture'] ?? '',
       createdAt: json['createdAt'],
     );
   }
@@ -44,12 +44,16 @@ class UserReview {
   final String content;
   final int reviewerId;
   final int receiverId;
+  final String createdAt;
+  final Map<String, dynamic> reviewer;
 
   UserReview({
     required this.id,
     required this.content,
     required this.reviewerId,
     required this.receiverId,
+    required this.createdAt,
+    required this.reviewer,
   });
 
   factory UserReview.fromJson(Map<String, dynamic> json) {
@@ -58,6 +62,8 @@ class UserReview {
       content: json['content'],
       reviewerId: json['reviewerId'],
       receiverId: json['receiverId'],
+      createdAt: json['createdAt'],
+      reviewer: json['reviewer'],
     );
   }
 }
